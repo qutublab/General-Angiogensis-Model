@@ -5,6 +5,9 @@ JAVAC = javac
 
 MASON = ../../mason
 POIDIR = ../../poi-3.8-beta3
+POIOOXML = $(POIDIR)/poi-ooxml-3.8-beta3-20110606.jar
+POI = $(POIDIR)/poi-3.8-beta3-20110606.jar
+
 
 # File names for shared package
 Shared = CellInterface EnvironmentInterface LogStreamInterface MyStreamTokenizer NodeInterface Point3D RandomInterface RuleSetInterface GridInterface OutputBufferInterface Point3D Parameter StateDiagramModel StateDiagramModelResult BasicStats OneRepStats SimulationStats Shape CellGeometry  UserRequest
@@ -16,7 +19,7 @@ SharedMason = ConcentrationsInterface
 Spheroid = Spheroid Sphere
 
 # File names for angiogensis package
-Angiogenesis = SimpleRuleSet RuleSetMPB RuleSetPMB RuleSetMPMB ApoptosisRule BranchingRule ProliferationRule MigrationRule ActivationRule Storage Parameters MigrationRule2 Parameters2 RuleSetM2PB RuleSetPM2B RuleSetM2PM2B StateMachineRuleSet StateMachineRuleStorage StateMachineRuleSet2 RuleResult MigrationRuleB MigrationRule2B StateMachineRuleSetB StateMachineRuleSet2B
+Angiogenesis = SimpleRuleSet RuleSetMPB RuleSetPMB RuleSetMPMB ApoptosisRule BranchingRule ProliferationRule MigrationRule ActivationRule Storage Parameters MigrationRule2 Parameters2 RuleSetM2PB RuleSetPM2B RuleSetM2PM2B StateMachineRuleSet StateMachineRuleStorage StateMachineRuleSet2 RuleResult MigrationRule2B StateMachineRuleSet2B
 
 #AngiogenesisPMB = RuleSet ApoptosisRule BranchingRule ProliferationRule MigrationRule ActivationRule Storage 
 
@@ -49,7 +52,7 @@ endif
 
 
 # Create all packages
-all: $(MASON) shared.jar sharedMason.jar spheroid.jar angiogenesis.jar  concentrations.jar scaffold.jar search.jar gui.jar tools.jar
+all: $(MASON) shared.jar sharedMason.jar spheroid.jar angiogenesis.jar  concentrations.jar scaffold.jar search.jar tools.jar
 
 
 # Create shared jar file
@@ -131,17 +134,17 @@ scaffold/%.class: scaffold/%.java $(MASON) shared.jar sharedMason.jar spheroid.j
 tools.jar: $(patsubst %, tools/%.class, $(Tools))
 	jar -vcf0 tools.jar tools
 
-tools/SpreadsheetWriter.class: tools/SpreadsheetWriter.java shared.jar $(POIDIR)/poi-ooxml-3.8-beta3-20110606.jar $(POIDIR)/poi-3.8-beta3-20110606.jar
-	$(JAVAC) -classpath $(QUOTE).$(COLON)shared.jar$(COLON)$(POIDIR)/poi-ooxml-3.8-beta3-20110606.jar$(COLON)$(POIDIR)/poi-3.8-beta3-20110606.jar$(QUOTE) $<
+tools/SpreadsheetWriter.class: tools/SpreadsheetWriter.java shared.jar $(POIOOXML) $(POI)
+	$(JAVAC) -classpath $(QUOTE).$(COLON)shared.jar$(COLON)$(POIOOXML)$(COLON)$(POI)$(QUOTE) $<
 
-tools/NotesWriter.class: tools/NotesWriter.java shared.jar $(POIDIR)/poi-ooxml-3.8-beta3-20110606.jar $(POIDIR)/poi-3.8-beta3-20110606.jar
-	$(JAVAC) -classpath $(QUOTE).$(COLON)shared.jar$(COLON)$(POIDIR)/poi-ooxml-3.8-beta3-20110606.jar$(COLON)$(POIDIR)/poi-3.8-beta3-20110606.jar$(QUOTE) $<
+tools/NotesWriter.class: tools/NotesWriter.java shared.jar $(POIOOXML) $(POI)
+	$(JAVAC) -classpath $(QUOTE).$(COLON)shared.jar$(COLON)$(POIOOXML)$(COLON)$(POI)$(QUOTE) $<
 
-tools/Extractor.class: tools/Extractor.java shared.jar $(POIDIR)/poi-ooxml-3.8-beta3-20110606.jar $(POIDIR)/poi-3.8-beta3-20110606.jar
-	$(JAVAC) -classpath $(QUOTE).$(COLON)shared.jar$(COLON)$(POIDIR)/poi-ooxml-3.8-beta3-20110606.jar$(COLON)$(POIDIR)/poi-3.8-beta3-20110606.jar$(QUOTE) $<
+tools/Extractor.class: tools/Extractor.java shared.jar $(POIOOXML) $(POI)
+	$(JAVAC) -classpath $(QUOTE).$(COLON)shared.jar$(COLON)$(POIOOXML)$(COLON)$(POI)$(QUOTE) $<
 
-tools/Covariance.class: tools/Covariance.java shared.jar $(POIDIR)/poi-ooxml-3.8-beta3-20110606.jar $(POIDIR)/poi-3.8-beta3-20110606.jar
-	$(JAVAC) -classpath $(QUOTE).$(COLON)shared.jar$(COLON)$(POIDIR)/poi-ooxml-3.8-beta3-20110606.jar$(COLON)$(POIDIR)/poi-3.8-beta3-20110606.jar$(QUOTE) $<
+tools/Covariance.class: tools/Covariance.java shared.jar $(POIOOXML) $(POI)
+	$(JAVAC) -classpath $(QUOTE).$(COLON)shared.jar$(COLON)$(POIOOXML)$(COLON)$(POI)$(QUOTE) $<
 
 tools/StateDiagramModelEditor.class: tools/StateDiagramModelEditor.java shared.jar 
 	$(JAVAC) -classpath $(QUOTE).$(COLON)shared.jar$(QUOTE) $<
